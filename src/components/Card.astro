@@ -1,0 +1,50 @@
+---
+//Card.astro
+
+export interface Props {
+  name: string;
+  capital: string;
+  population: number;
+  cca3: string;
+  flag: string;
+}
+const { name, capital, population, flag, cca3 } = Astro.props;
+---
+
+<li class='country'>
+  <a href={`country/${cca3}`}>
+    <img src={flag} alt={name} class='countryflag' />
+    <h3>{name}</h3>
+    <p>
+      <strong>Population:</strong>{new Intl.NumberFormat("en-US").format(population)}
+    </p>
+    <p><strong>Capital:</strong>{capital}</p>
+  </a>
+</li>
+<style>
+  .country {
+    list-style-type: none;
+    height: 350px;
+    width: 30ch;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 1.5px 1.5px 11px hsla(208.4, 23.5%, 31.8%, 0.39), -1.5px -1.5px 11px rgba(0, 0, 0, 0);
+  }
+  .country h3,
+  p {
+    margin-left: 10px;
+  }
+  p {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .countryflag {
+    aspect-ratio: 2/1;
+    width: 100%;
+    height: auto;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+</style>

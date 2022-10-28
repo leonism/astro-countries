@@ -1,0 +1,50 @@
+---
+//[slug].astro
+
+import Layout from "../../layouts/Layout.astro";
+export async function getStaticPaths() {
+  const characters = await fetch("https://restcountries.com/v3/all").then((res) => res.json());
+  return characters.map((el: any) => ({ params: { slug: el.cca3 } }));
+}
+const { slug } = Astro.params;
+const data = await fetch(`https://restcountries.com/v3.1/alpha/${slug}`).then((res) => res.json());
+---
+
+<Layout title={data[0]?.name}>
+  <section class='page-content'>
+    <div class='container'>
+      <img src={data[0].flags.svg} alt='' />
+      <h2>{data[0].name.common}</h2>
+      <ul>
+        <li>Official Name: {data[0]?.name.official}</li>
+        <li>Independent: {data[0]?.independent ? `Yes` : `No`}</li>
+        <li>Continents: {data[0]?.continents}</li>
+        <li>Sub Region: {data[0]?.subregion}</li>
+        <li>Timezones: {data[0]?.timezones}</li>
+        <li>
+          Population: {new Intl.NumberFormat("en-US").format(data[0]?.population)}
+        </li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-content {
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
+    align-items: center;
+    justify-content: center;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  img {
+    aspect-ratio: 2/1;
+    width: 50%;
+  }
+</style>

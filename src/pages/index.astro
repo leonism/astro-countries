@@ -1,0 +1,58 @@
+---
+// index.astro
+
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+const allCountries = await fetch("https://restcountries.com/v3/all").then((res) => res.json());
+---
+
+<Layout title='Welcome to Astro.'>
+  <main>
+    <h1>Welcome to <span class='text-gradient'>Astro</span></h1>
+    <ul role='list' class='countries'>
+      {
+        allCountries.map((country: any) => {
+          return (
+            <Card
+              name={country.name.common}
+              capital={country.capital}
+              cca3={country.cca3}
+              population={country.population}
+              flag={country.flags[1]}
+            />
+          );
+        })
+      }
+    </ul>
+  </main>
+</Layout>
+<style>
+  :root {
+    --astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
+  }
+  .countries {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-gap: 3rem;
+    grid-auto-rows: minmax(100px, auto);
+    margin: 70px auto;
+  }
+  h1 {
+    margin: 2rem 0;
+  }
+  main {
+    margin: auto;
+    padding: 1em;
+    max-width: 100ch;
+  }
+  .text-gradient {
+    font-weight: 900;
+    background-image: var(--astro-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 100% 200%;
+    background-position-y: 100%;
+    border-radius: 0.4rem;
+    animation: pulse 4s ease-in-out infinite;
+  }
+</style>
