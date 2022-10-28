@@ -46,4 +46,23 @@ All commands are run from the root of the project, from a terminal:
 
 ## 👀 Want to learn more?
 
+## 👀 Proudly Hosted at GitHub
+
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+…or create a new repository on the command line
+echo "# astro-countries" >> README.md
+
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/leonism/astro-countries.git
+git push -u origin main
+
+…or push an existing repository from the command line
+git remote add origin https://github.com/leonism/astro-countries.git
+git branch -M main
+git push -u origin main
+…or import code from another repository
+You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
